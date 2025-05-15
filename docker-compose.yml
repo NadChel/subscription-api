@@ -1,7 +1,7 @@
 version: '2.1'
 
 services:
-  product-api:
+  subscription-api:
     build:
       context: .
       dockerfile: Dockerfile
