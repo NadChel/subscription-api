@@ -5,6 +5,7 @@ import com.example.productapi.data.dto.UpdatedUserRequestDto;
 import com.example.productapi.data.dto.UserResponseDto;
 import com.example.productapi.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,30 +22,35 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
     private final UserService service;
 
     @PostMapping
     public ResponseEntity<UserResponseDto> saveUser(@RequestBody NewUserRequestDto dto) {
+        log.info("POST /users");
         UserResponseDto savedUserDto = service.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUserDto);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getUser(@PathVariable UUID id) {
+        log.info("GET /users/{id}");
         UserResponseDto userDto = service.findById(id).orElse(null);
         return ResponseEntity.ok(userDto);
     }
 
     @PutMapping
     public ResponseEntity<UserResponseDto> updateUser(@RequestBody UpdatedUserRequestDto dto) {
+        log.info("PUT /users");
         UserResponseDto savedProductDto = service.update(dto);
         return ResponseEntity.ok(savedProductDto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") UUID id) {
+        log.info("DELETE /users/{id}");
         service.deleteById(id);
         return ResponseEntity.ok().build();
     }
