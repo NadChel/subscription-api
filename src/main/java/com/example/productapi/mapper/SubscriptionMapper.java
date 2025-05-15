@@ -7,6 +7,8 @@ import com.example.productapi.data.entity.Subscription;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface SubscriptionMapper {
     Subscription toSubscription(NewSubscriptionRequestDto dto);
@@ -14,4 +16,6 @@ public interface SubscriptionMapper {
     Subscription toSubscription(UpdatedSubscriptionRequestDto dto);
 
     SubscriptionResponseDto toResponseDto(Subscription subscription);
+
+    List<SubscriptionResponseDto> toResponseDtos(List<Subscription> subscriptions);
 }
